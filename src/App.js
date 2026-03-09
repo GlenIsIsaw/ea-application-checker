@@ -107,8 +107,8 @@ function App() {
     return years;
   };
 
-  // Sample database with names including 'ñ', mixed cases, municipality addresses, and birthdays
   // Normalize string for comparison (handles accents, ñ, and case)
+  // Note: This is still used by getFullName
   const normalizeString = (str) => {
     if (!str) return "";
 
@@ -343,7 +343,6 @@ function App() {
   };
 
   // Handle new search from modal
-  // Handle new search from modal
   const handleNewSearch = () => {
     setShowModal(false);
     // Reset CAPTCHA when starting a new search
@@ -352,6 +351,7 @@ function App() {
       captchaRef.current.resetCaptcha();
     }
   };
+  
   // Trigger confetti when success modal is shown
   useEffect(() => {
     if (showModal && result?.exists) {
@@ -719,7 +719,7 @@ function App() {
 
                     <Card className="error-message-card">
                       <Card.Body className="text-center p-4">
-                        <h3 className="mb-3 text-capitalize">
+                        <h3 className="mb-3 text-uppercase fw-bold">
                           {result.fullName}
                         </h3>
 
