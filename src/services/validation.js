@@ -60,7 +60,7 @@ export function isSuspiciousInput(input) {
     "union",
     "update",
     "<script",
-    "javascript:",
+    "javascript",
     "onerror=",
     "onload=",
   ];
