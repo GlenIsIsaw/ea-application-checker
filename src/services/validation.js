@@ -41,29 +41,13 @@ export function isValidDate(month, day, year) {
 export function isSuspiciousInput(input) {
   if (!input) return false;
 
-  const suspicious = [
-    "--",
-    ";",
-    "/*",
-    "*/",
-    "@@",
-    "char(",
-    "nchar(",
-    "varchar(",
-    "alter",
-    "create",
-    "delete",
-    "drop",
-    "exec",
-    "insert",
-    "select",
-    "union",
-    "update",
-    "<script",
-    "javascript",
-    "onerror=",
-    "onload=",
-  ];
+ const suspicious = [
+  '--', ';', '/*', '*/', '@@', 
+  'char(', 'nchar(', 'varchar(',
+  'alter', 'create', 'delete', 'drop', 'exec', 'insert', 
+  'select', 'union', 'update',
+  '<script', 'onerror=', 'onload='
+];
 
   const lowerInput = input.toLowerCase();
   return suspicious.some((pattern) => lowerInput.includes(pattern));
