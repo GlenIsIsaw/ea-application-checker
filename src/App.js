@@ -570,7 +570,7 @@ function App() {
                         )}
                       </Button>
                     </Col>
-                    <Col md={2}>
+                    <Col md={2} className="mb-2 mb-md-0">
                       <Button
                         variant="outline-secondary"
                         onClick={handleClear}
