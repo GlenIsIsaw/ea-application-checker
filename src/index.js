@@ -11,8 +11,8 @@ const asciiArt = `
 ║                                                          ║
 ║        APPLICATION CHECKER by Glen Pabico                ║
 ║                                                          ║
-║        Secure | Fast | Reliable                          ║
-║        Camarines Norte - 2nd District                    ║
+║        Front - End Web Developer                         ║
+║        Web Designer | IT Personnel | #PadagosLang        ║
 ║                                                          ║
 ╚══════════════════════════════════════════════════════════╝
 `;
@@ -20,7 +20,7 @@ const asciiArt = `
 console.log(asciiArt, 'color: #2e7d32; font-weight: bold; font-size: 12px;');
 
 console.log(
-  '%c✨ Thank you for visiting! ✨',
+  '%cFor inquiries: glenpabico20@gmail.com',
   'color: #1b5e20; font-size: 14px; font-style: italic;'
 );
 
