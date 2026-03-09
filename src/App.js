@@ -14,6 +14,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import confetti from "canvas-confetti";
 import { checkNameInDatabase } from "./services/nameService";
 import "./App.css";
+import { sanitizeInput, isValidName, isSuspiciousInput } from './services/validation';
 import Captcha from "./components/Captcha";
 
 function App() {
@@ -354,89 +355,111 @@ function App() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Validate required fields
-    if (!lastName.trim()) {
-      setError("Last name is required");
-      return;
+  // Validate required fields
+  if (!lastName.trim()) {
+    setError("Last name is required");
+    return;
+  }
+  if (!firstName.trim()) {
+    setError("First name is required");
+    return;
+  }
+
+  // Validate birthday fields (required)
+  if (!month) {
+    setError("Month is required");
+    return;
+  }
+  if (!day) {
+    setError("Day is required");
+    return;
+  }
+  if (!year) {
+    setError("Year is required");
+    return;
+  }
+
+  // ===== ADD SECURITY VALIDATION HERE =====
+  // Sanitize inputs
+  const sanitizedLastName = sanitizeInput(lastName);
+  const sanitizedFirstName = sanitizeInput(firstName);
+  const sanitizedMiddleName = sanitizeInput(middleName);
+
+  // Check for suspicious patterns
+  if (isSuspiciousInput(sanitizedLastName) || 
+      isSuspiciousInput(sanitizedFirstName) ||
+      isSuspiciousInput(sanitizedMiddleName)) {
+    setError("Invalid input detected");
+    return;
+  }
+
+  // Validate name format
+  if (!isValidName(sanitizedLastName) || !isValidName(sanitizedFirstName)) {
+    setError("Name contains invalid characters");
+    return;
+  }
+  // ===== END SECURITY VALIDATION =====
+
+  // Validate CAPTCHA
+  if (!captchaToken) {
+    setCaptchaError("Please complete the CAPTCHA verification");
+    return;
+  }
+  setCaptchaError("");
+
+  setLoading(true);
+  setError("");
+
+  try {
+    // Format birthday for database (YYYY-MM-DD)
+    const formattedBirthday = `${year}-${month}-${day}`;
+
+    // Call Supabase to check if name exists
+    const result = await checkNameInDatabase(
+      sanitizedLastName.toUpperCase(), // Use sanitized version
+      sanitizedFirstName.toUpperCase(), // Use sanitized version
+      formattedBirthday,
+      sanitizedMiddleName.toUpperCase(), // Use sanitized version
+      extension,
+    );
+
+    // Rest of your code...
+    const fullName = getFullName(lastName, firstName, middleName, extension);
+    const monthName =
+      monthOptions.find((m) => m.value === month)?.label || month;
+    const displayBirthday = `${monthName} ${parseInt(day)}, ${year}`;
+
+    // Create result object with data from database
+    const newResult = {
+      fullName: fullName,
+      lastName: lastName, // Keep original for display
+      firstName: firstName, // Keep original for display
+      middleName: middleName || null,
+      extension: extension || null,
+      municipality: result.data?.municipality || null,
+      birthday: displayBirthday,
+      exists: result.exists,
+      timestamp: new Date().toLocaleString(),
+    };
+
+    setResult(newResult);
+    setShowModal(true);
+
+    // Reset CAPTCHA after successful submission
+    setCaptchaToken(null);
+    if (captchaRef.current) {
+      captchaRef.current.resetCaptcha();
     }
-    if (!firstName.trim()) {
-      setError("First name is required");
-      return;
-    }
-
-    // Validate birthday fields (required)
-    if (!month) {
-      setError("Month is required");
-      return;
-    }
-    if (!day) {
-      setError("Day is required");
-      return;
-    }
-    if (!year) {
-      setError("Year is required");
-      return;
-    }
-
-    // Validate CAPTCHA
-    if (!captchaToken) {
-      setCaptchaError("Please complete the CAPTCHA verification");
-      return;
-    }
-    setCaptchaError("");
-
-    setLoading(true);
-    setError("");
-
-    try {
-      // Format birthday for database (YYYY-MM-DD)
-      const formattedBirthday = `${year}-${month}-${day}`;
-
-      // Call Supabase to check if name exists
-      const result = await checkNameInDatabase(
-        lastName.toUpperCase(),
-        firstName.toUpperCase(),
-        formattedBirthday,
-        middleName.toUpperCase(),
-        extension,
-      );
-
-      const fullName = getFullName(lastName, firstName, middleName, extension);
-      const monthName =
-        monthOptions.find((m) => m.value === month)?.label || month;
-      const displayBirthday = `${monthName} ${parseInt(day)}, ${year}`;
-
-      // Create result object with data from database
-      const newResult = {
-        fullName: fullName,
-        lastName: lastName,
-        firstName: firstName,
-        middleName: middleName || null,
-        extension: extension || null,
-        municipality: result.data?.municipality || null,
-        birthday: displayBirthday,
-        exists: result.exists,
-        timestamp: new Date().toLocaleString(),
-      };
-
-      setResult(newResult);
-      setShowModal(true);
-
-      // Reset CAPTCHA after successful submission
-      setCaptchaToken(null);
-      if (captchaRef.current) {
-        captchaRef.current.resetCaptcha();
-      }
-    } catch (error) {
-      setError("Database error. Please try again.");
-      console.error("Error checking name:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (error) {
+    setError("Database error. Please try again.");
+    console.error("Error checking name:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Clear form
   const handleClear = () => {
