@@ -14,7 +14,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import confetti from "canvas-confetti";
 import { checkNameInDatabase } from "./services/nameService";
 import "./App.css";
-import { sanitizeInput, isValidName, isSuspiciousInput } from './services/validation';
+import {
+  sanitizeInput,
+  isValidName,
+  isSuspiciousInput,
+} from "./services/validation";
 import Captcha from "./components/Captcha";
 
 function App() {
@@ -355,111 +359,113 @@ function App() {
   };
 
   // Handle form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Validate required fields
-  if (!lastName.trim()) {
-    setError("Last name is required");
-    return;
-  }
-  if (!firstName.trim()) {
-    setError("First name is required");
-    return;
-  }
-
-  // Validate birthday fields (required)
-  if (!month) {
-    setError("Month is required");
-    return;
-  }
-  if (!day) {
-    setError("Day is required");
-    return;
-  }
-  if (!year) {
-    setError("Year is required");
-    return;
-  }
-
-  // ===== ADD SECURITY VALIDATION HERE =====
-  // Sanitize inputs
-  const sanitizedLastName = sanitizeInput(lastName);
-  const sanitizedFirstName = sanitizeInput(firstName);
-  const sanitizedMiddleName = sanitizeInput(middleName);
-
-  // Check for suspicious patterns
-  if (isSuspiciousInput(sanitizedLastName) || 
-      isSuspiciousInput(sanitizedFirstName) ||
-      isSuspiciousInput(sanitizedMiddleName)) {
-    setError("Invalid input detected");
-    return;
-  }
-
-  // Validate name format
-  if (!isValidName(sanitizedLastName) || !isValidName(sanitizedFirstName)) {
-    setError("Name contains invalid characters");
-    return;
-  }
-  // ===== END SECURITY VALIDATION =====
-
-  // Validate CAPTCHA
-  if (!captchaToken) {
-    setCaptchaError("Please complete the CAPTCHA verification");
-    return;
-  }
-  setCaptchaError("");
-
-  setLoading(true);
-  setError("");
-
-  try {
-    // Format birthday for database (YYYY-MM-DD)
-    const formattedBirthday = `${year}-${month}-${day}`;
-
-    // Call Supabase to check if name exists
-    const result = await checkNameInDatabase(
-      sanitizedLastName.toUpperCase(), // Use sanitized version
-      sanitizedFirstName.toUpperCase(), // Use sanitized version
-      formattedBirthday,
-      sanitizedMiddleName.toUpperCase(), // Use sanitized version
-      extension,
-    );
-
-    // Rest of your code...
-    const fullName = getFullName(lastName, firstName, middleName, extension);
-    const monthName =
-      monthOptions.find((m) => m.value === month)?.label || month;
-    const displayBirthday = `${monthName} ${parseInt(day)}, ${year}`;
-
-    // Create result object with data from database
-    const newResult = {
-      fullName: fullName,
-      lastName: lastName, // Keep original for display
-      firstName: firstName, // Keep original for display
-      middleName: middleName || null,
-      extension: extension || null,
-      municipality: result.data?.municipality || null,
-      birthday: displayBirthday,
-      exists: result.exists,
-      timestamp: new Date().toLocaleString(),
-    };
-
-    setResult(newResult);
-    setShowModal(true);
-
-    // Reset CAPTCHA after successful submission
-    setCaptchaToken(null);
-    if (captchaRef.current) {
-      captchaRef.current.resetCaptcha();
+    // Validate required fields
+    if (!lastName.trim()) {
+      setError("Last name is required");
+      return;
     }
-  } catch (error) {
-    setError("Database error. Please try again.");
-    console.error("Error checking name:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+    if (!firstName.trim()) {
+      setError("First name is required");
+      return;
+    }
+
+    // Validate birthday fields (required)
+    if (!month) {
+      setError("Month is required");
+      return;
+    }
+    if (!day) {
+      setError("Day is required");
+      return;
+    }
+    if (!year) {
+      setError("Year is required");
+      return;
+    }
+
+    // ===== ADD SECURITY VALIDATION HERE =====
+    // Sanitize inputs
+    const sanitizedLastName = sanitizeInput(lastName);
+    const sanitizedFirstName = sanitizeInput(firstName);
+    const sanitizedMiddleName = sanitizeInput(middleName);
+
+    // Check for suspicious patterns
+    if (
+      isSuspiciousInput(sanitizedLastName) ||
+      isSuspiciousInput(sanitizedFirstName) ||
+      isSuspiciousInput(sanitizedMiddleName)
+    ) {
+      setError("Invalid input detected");
+      return;
+    }
+
+    // Validate name format
+    if (!isValidName(sanitizedLastName) || !isValidName(sanitizedFirstName)) {
+      setError("Name contains invalid characters");
+      return;
+    }
+    // ===== END SECURITY VALIDATION =====
+
+    // Validate CAPTCHA
+    if (!captchaToken) {
+      setCaptchaError("Please complete the CAPTCHA verification");
+      return;
+    }
+    setCaptchaError("");
+
+    setLoading(true);
+    setError("");
+
+    try {
+      // Format birthday for database (YYYY-MM-DD)
+      const formattedBirthday = `${year}-${month}-${day}`;
+
+      // Call Supabase to check if name exists
+      const result = await checkNameInDatabase(
+        sanitizedLastName.toUpperCase(), // Use sanitized version
+        sanitizedFirstName.toUpperCase(), // Use sanitized version
+        formattedBirthday,
+        sanitizedMiddleName.toUpperCase(), // Use sanitized version
+        extension,
+      );
+
+      // Rest of your code...
+      const fullName = getFullName(lastName, firstName, middleName, extension);
+      const monthName =
+        monthOptions.find((m) => m.value === month)?.label || month;
+      const displayBirthday = `${monthName} ${parseInt(day)}, ${year}`;
+
+      // Create result object with data from database
+      const newResult = {
+        fullName: fullName,
+        lastName: lastName, // Keep original for display
+        firstName: firstName, // Keep original for display
+        middleName: middleName || null,
+        extension: extension || null,
+        municipality: result.data?.municipality || null,
+        birthday: displayBirthday,
+        exists: result.exists,
+        timestamp: new Date().toLocaleString(),
+      };
+
+      setResult(newResult);
+      setShowModal(true);
+
+      // Reset CAPTCHA after successful submission
+      setCaptchaToken(null);
+      if (captchaRef.current) {
+        captchaRef.current.resetCaptcha();
+      }
+    } catch (error) {
+      setError("Database error. Please try again.");
+      console.error("Error checking name:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Clear form
   const handleClear = () => {
@@ -769,42 +775,50 @@ const handleSubmit = async (e) => {
 
                     <Card className="success-message-card">
                       <Card.Body className="p-4">
-                        <p className="fs-5">
+                        <p className="modal-text fs-5">
                           We are pleased to inform you that{" "}
-                          <strong className="text-capitalize">
+                          <strong className="text-uppercase">
                             {result.lastName}
                           </strong>
                           ,{" "}
-                          <strong className="text-capitalize">
+                          <strong className="text-uppercase">
                             {result.firstName}
                           </strong>{" "}
                           {result.middleName && (
-                            <strong className="text-capitalize">
+                            <strong className="text-uppercase">
                               {result.middleName}
                             </strong>
                           )}{" "}
                           {result.extension && (
-                            <strong>{result.extension}</strong>
-                          )}
+                            <strong className="text-uppercase">
+                              {result.extension}
+                            </strong>
+                          )}{" "}
                           , born on <strong>{result.birthday}</strong>, a
-                          resident of <strong>{result.municipality}</strong>,
-                          Camarines Norte, has been successfully included in the
-                          Cleanlisted Beneficiaries.
+                          resident of{" "}
+                          <span className="text-capitalize">
+                            {result.municipality}
+                          </span>
+                          , Camarines Norte, has been{" "}
+                          <strong className="fw-bold text-success text-uppercase">
+                            successfully included in the Cleanlisted
+                            Beneficiaries.{" "}
+                          </strong>
                         </p>
 
-                        <p className="fs-5 mt-4">
+                        <p className="modal-text fs-5 mt-4">
                           Your inclusion in the cleanlist signifies that your
                           information has been properly verified and validated
                           according to the program guidelines. We commend your
                           cooperation and participation throughout the process.
                         </p>
 
-                        <p className="fs-5 mt-4">
+                        <p className="modal-text fs-5 mt-4">
                           Please wait for further announcements regarding the
                           next steps and instructions for the beneficiaries.
                         </p>
 
-                        <p className="fs-5 mt-4">
+                        <p className="modal-text fs-5 mt-4">
                           Once again, congratulations, and we wish you continued
                           success and support through this program.
                         </p>
@@ -870,28 +884,37 @@ const handleSubmit = async (e) => {
                           does not appear in our current list of beneficiaries.
                         </h4>
 
-                        <p className="text-muted">
+                        <p className="text-muted modal-text">
                           <i className="bi bi-info-circle me-2"></i>
-                          This may be due to the limited number of beneficiaries
-                          accommodated for this assistance program. We encourage
-                          you to stay updated for future opportunities and
-                          announcements.
+                          If the student is a minor, please try searching using
+                          the name of the parent or guardian indicated and submitted through
+                          digital application form.
                         </p>
 
-                        <p className="text-muted mt-2">
-                          <i className="bi bi-search me-2"></i>
+                        <p className="text-muted modal-text">
+                          <i className="bi bi-info-circle me-2"></i>
+                          This may be due to the limited number of beneficiaries
+                          accommodated for this assistance program, or because
+                          the applicant may have already availed educational
+                          assistance from another program, department, or
+                          institution. We encourage you to stay updated for
+                          future opportunities and announcements.
+                        </p>
+
+                        <p className="text-muted modal-text mt-2">
+                          <i className="bi bi-info-circle me-2"></i>
                           You may also verify the spelling of your name or try
                           searching again using different name combinations.
                         </p>
 
-                        <p className="text-muted mt-3">
+                        <p className="text-muted modal-text mt-3">
                           <i className="bi bi-envelope me-2"></i>
                           If you have questions or require further
                           clarification, you may send your inquiries to{" "}
                           <strong>akapaics2nddistcn@gmail.com</strong>.
                         </p>
 
-                        <p className="text-muted mt-3">
+                        <p className="text-muted modal-text mt-3">
                           <i className="bi bi-clock me-2"></i>
                           {result.timestamp}
                         </p>
