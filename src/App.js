@@ -699,7 +699,7 @@ function App() {
                             >
                               requirements
                             </a>{" "}
-                            will be conducted at the following venue:
+                            will be conducted and submitted at the following venue:
                           </p>
 
                           <div className="schedule-venue-card">
