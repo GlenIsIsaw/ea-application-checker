@@ -425,11 +425,10 @@ function App() {
                     </Col>
 
                     {/* Middle Name - Optional */}
-                    <Col md={6} className="mb-3">
+                    <Col md={6} className="my-2">
                       <Form.Group>
                         <Form.Label className="modern-label">
                           Middle Name{" "}
-                          <span className="text-muted">(Optional)</span>
                         </Form.Label>
                         <Form.Control
                           type="text"
@@ -443,11 +442,10 @@ function App() {
                     </Col>
 
                     {/* Extension Name - Optional Dropdown */}
-                    <Col md={6} className="mb-3">
+                    <Col md={6} className="my-2">
                       <Form.Group>
                         <Form.Label className="modern-label">
                           Extension Name{" "}
-                          <span className="text-muted">(Optional)</span>
                         </Form.Label>
                         <Form.Select
                           className="modern-select"
