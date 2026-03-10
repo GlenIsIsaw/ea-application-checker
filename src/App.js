@@ -287,7 +287,7 @@ function App() {
         sanitizedFirstName.toUpperCase(), // Use sanitized version
         formattedBirthday,
         sanitizedMiddleName.toUpperCase(), // Use sanitized version
-        extension,
+        extension.toUpperCase(),
       );
 
       // Rest of your code...
@@ -993,6 +993,10 @@ function App() {
                                         <i className="bi bi-dot text-success me-2"></i>
                                         UMID
                                       </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Philippine Postal ID
+                                      </li>
                                     </ul>
                                   </div>
                                   <div className="col-12 col-sm-6">
@@ -1148,6 +1152,10 @@ function App() {
                                         <i className="bi bi-dot text-success me-2"></i>
                                         UMID
                                       </li>
+                                      <li>
+                                          <i className="bi bi-dot text-success me-2"></i>
+                                        Philippine Postal ID
+                                      </li>
                                     </ul>
                                   </div>
                                   <div className="col-12 col-sm-6">
@@ -1213,6 +1221,10 @@ function App() {
                                       <li className="mb-1 small">
                                         <i className="bi bi-dot text-success me-2"></i>
                                         UMID
+                                      </li>
+                                       <li>
+                                          <i className="bi bi-dot text-success me-2"></i>
+                                        Philippine Postal ID
                                       </li>
                                     </ul>
                                   </div>
@@ -1440,6 +1452,10 @@ function App() {
                                         <i className="bi bi-dot text-success me-2"></i>
                                         UMID
                                       </li>
+                                       <li>
+                                          <i className="bi bi-dot text-success me-2"></i>
+                                        Philippine Postal ID
+                                      </li>
                                     </ul>
                                   </div>
                                   <div className="col-md-6">
@@ -1467,7 +1483,7 @@ function App() {
                                     </ul>
                                   </div>
                                 </div>
-                              </div>
+                              </div>                             
                             </li>
 
                             <li className="mb-3">
