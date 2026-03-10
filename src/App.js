@@ -37,6 +37,12 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Add this with your other state declarations
+  const [isTagalog, setIsTagalog] = useState(true); // true = Tagalog, false = English
+
+  // Add this with your other state declarations
+  const [hasAgreed, setHasAgreed] = useState(false);
+
   // Modal state
   const [showModal, setShowModal] = useState(false);
   const [showRequirementsModal, setShowRequirementsModal] = useState(false);
@@ -45,8 +51,10 @@ function App() {
   const modalContentRef = useRef(null);
 
   // Handler functions for requirements modal
+  // Handler functions for requirements modal
   const handleShowRequirements = () => {
     setShowRequirementsModal(true);
+    setHasAgreed(false); // Reset checkbox when modal opens
   };
 
   const [captchaToken, setCaptchaToken] = useState(null);
@@ -157,7 +165,7 @@ function App() {
         origin: { x: originX, y: originY },
         colors: ["#26ccff", "#a25afd", "#ff5e7d", "#ffac46", "#25ff83"],
         startVelocity: 25,
-        zIndex: 9999,
+        zIndex: 10001, // Make sure this is higher than modal's z-index
       });
 
       // Second burst - left side
@@ -168,7 +176,7 @@ function App() {
           origin: { x: Math.max(0, originX - 0.1), y: originY },
           colors: ["#26ccff", "#a25afd", "#ff5e7d"],
           startVelocity: 20,
-          zIndex: 9999,
+          zIndex: 10001,
         });
       }, 150);
 
@@ -180,7 +188,7 @@ function App() {
           origin: { x: Math.min(1, originX + 0.1), y: originY },
           colors: ["#ffac46", "#25ff83", "#ff5e7d"],
           startVelocity: 20,
-          zIndex: 9999,
+          zIndex: 10001,
         });
       }, 300);
 
@@ -192,7 +200,7 @@ function App() {
           origin: { x: originX, y: Math.max(0, originY - 0.15) },
           colors: ["#ff5e7d", "#ffac46", "#26ccff"],
           startVelocity: 18,
-          zIndex: 9999,
+          zIndex: 10001,
         });
       }, 450);
     } catch (error) {
@@ -203,7 +211,7 @@ function App() {
         spread: 70,
         origin: { y: 0.6 },
         colors: ["#26ccff", "#a25afd", "#ff5e7d", "#ffac46", "#25ff83"],
-        zIndex: 9999,
+        zIndex: 10001,
       });
     }
   };
@@ -351,7 +359,7 @@ function App() {
       captchaRef.current.resetCaptcha();
     }
   };
-  
+
   // Trigger confetti when success modal is shown
   useEffect(() => {
     if (showModal && result?.exists) {
@@ -663,11 +671,125 @@ function App() {
                           cooperation and participation throughout the process.
                         </p>
 
-                        <p className="modal-text fs-5 mt-4">
-                          Please wait for further announcements regarding the
-                          next steps and instructions for the beneficiaries.
-                        </p>
+                        {/* Schedule Section with Custom CSS */}
+                        <div className="schedule-container mt-4 p-3 p-md-4 bg-light rounded-3 border-start border-success border-4">
+                          <h5 className="schedule-title text-success fw-bold mb-3 d-flex align-items-center">
+                            <i className="bi bi-calendar-check me-2"></i>
+                            Schedule of Validation and Paper Screening
+                          </h5>
 
+                          <p className="small mb-3">
+                            The validation and paper screening of{" "}
+                            <a
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleShowRequirements();
+                              }}
+                              className="text-success fw-bold text-decoration-none"
+                              style={{
+                                cursor: "pointer",
+                                borderBottom: "1px dashed currentColor",
+                                transition: "all 0.2s ease",
+                              }}
+                              onMouseEnter={(e) =>
+                                (e.target.style.borderBottomStyle = "solid")
+                              }
+                              onMouseLeave={(e) =>
+                                (e.target.style.borderBottomStyle = "dashed")
+                              }
+                            >
+                              requirements
+                            </a>{" "}
+                            will be conducted at the following venue:
+                          </p>
+
+                          <div className="schedule-venue-card">
+                            <div className="d-flex align-items-start">
+                              <i className="bi bi-geo-alt-fill text-success me-2 mt-1 flex-shrink-0"></i>
+                              <div>
+                                <p className="fw-bold mb-1">
+                                  Barangay Borabod Covered Court
+                                </p>
+                                <p className="fs-4">
+                                  Barangay Borabod, Daet, Camarines Norte
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <p className="fw-bold small mb-3">
+                            Clients are kindly advised to follow the schedule
+                            below:
+                          </p>
+
+                          {/* Schedule List */}
+                          <div className="mb-4">
+                            {/* March 11 */}
+                            <div className="schedule-item">
+                              <div className="schedule-date-badge">11</div>
+                              <div className="schedule-details">
+                                <div className="schedule-day">
+                                  March 11, 2026 (Wednesday)
+                                </div>
+                                <div className="schedule-time">
+                                  <i className="bi bi-clock schedule-icon"></i>
+                                  <span>8:00 AM – 4:30 PM</span>
+                                </div>
+                                <div className="schedule-limit">
+                                  <i className="bi bi-people schedule-icon"></i>
+                                  <span>First 796 clients only</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* March 12 */}
+                            <div className="schedule-item">
+                              <div className="schedule-date-badge">12</div>
+                              <div className="schedule-details">
+                                <div className="schedule-day">
+                                  March 12, 2026 (Thursday)
+                                </div>
+                                <div className="schedule-time">
+                                  <i className="bi bi-clock schedule-icon"></i>
+                                  <span>8:00 AM – 4:30 PM</span>
+                                </div>
+                                <div className="schedule-limit">
+                                  <i className="bi bi-people schedule-icon"></i>
+                                  <span>First 797 clients only</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* March 13 */}
+                            <div className="schedule-item">
+                              <div className="schedule-date-badge">13</div>
+                              <div className="schedule-details">
+                                <div className="schedule-day">
+                                  March 13, 2026 (Friday)
+                                </div>
+                                <div className="schedule-time">
+                                  <i className="bi bi-clock schedule-icon"></i>
+                                  <span>8:00 AM – 4:30 PM</span>
+                                </div>
+                                <div className="schedule-limit">
+                                  <i className="bi bi-people schedule-icon"></i>
+                                  <span>First 797 clients only</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Important Reminder */}
+                          <div className="schedule-reminder">
+                            <i className="bi bi-exclamation-triangle-fill text-warning flex-shrink-0"></i>
+                            <p className="schedule-reminder-text">
+                              Kindly arrive on time and bring all the required
+                              documents to ensure a smooth and efficient
+                              validation process.
+                            </p>
+                          </div>
+                        </div>
                         <p className="modal-text fs-5 mt-4">
                           Once again, congratulations, and we wish you continued
                           success and support through this program.
@@ -737,8 +859,8 @@ function App() {
                         <p className="text-muted modal-text">
                           <i className="bi bi-info-circle me-2"></i>
                           If the student is a minor, please try searching using
-                          the name of the parent or guardian indicated and submitted through
-                          digital application form.
+                          the name of the parent or guardian indicated and
+                          submitted through digital application form.
                         </p>
 
                         <p className="text-muted modal-text">
@@ -784,8 +906,7 @@ function App() {
                 </>
               ) : null}
             </Modal>
-
-            {/* Requirements Modal - This is now OUTSIDE the result modal */}
+            {/* Requirements Modal */}
             <Modal
               show={showRequirementsModal}
               onHide={handleCloseRequirements}
@@ -794,114 +915,873 @@ function App() {
               backdrop="static"
             >
               <Modal.Header className="modal-success-header text-white">
-                <Modal.Title className="w-100 text-center text-uppercase fs-2">
-                  Requirements for Beneficiaries
+                <Modal.Title className="w-100">
+                  <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                    <span className="text-uppercase fs-3 fs-md-2 text-center text-md-start">
+                      Requirements for Beneficiaries
+                    </span>
+                    <div className="d-flex align-items-center gap-2 bg-white bg-opacity-10 p-2 rounded-3">
+                      <span
+                        className={`fs-6 ${!isTagalog ? "text-white-50" : "text-white fw-bold"}`}
+                      >
+                        <span className="d-none d-sm-inline">🇵🇭</span> Tagalog
+                      </span>
+                      <Form.Check
+                        type="switch"
+                        id="language-switch"
+                        checked={!isTagalog}
+                        onChange={() => setIsTagalog(!isTagalog)}
+                        className="language-switch mx-1"
+                      />
+                      <span
+                        className={`fs-6 ${isTagalog ? "text-white-50" : "text-white fw-bold"}`}
+                      >
+                        <span className="d-none d-sm-inline">🇬🇧</span> English
+                      </span>
+                    </div>
+                  </div>
                 </Modal.Title>
               </Modal.Header>
-              <Modal.Body className="p-4">
+              <Modal.Body className="p-3 p-md-4">
                 <Card className="border-0">
-                  <Card.Body className="p-4">
-                    <h5 className="text-success mb-4">
-                      <i className="bi bi-person-check me-2"></i>
-                      Personal Documents
-                    </h5>
-                    <ul className="list-unstyled mb-4">
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Valid Government ID (Passport, Driver's License, UMID,
-                        etc.)
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Birth Certificate (PSA authenticated)
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Barangay Clearance / Certificate of Residency
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Recent 2x2 ID Photos (2 copies)
-                      </li>
-                    </ul>
+                  <Card.Body className="p-3 p-md-4">
+                    {isTagalog ? (
+                      /* ===== TAGALOG VERSION ===== */
+                      <>
+                        {/* Requirements for Students - Tagalog */}
+                        <div className="mb-5">
+                          <h4 className="text-success fw-bold mb-3 fs-5 fs-md-4">
+                            <i className="bi bi-person-video3 me-2"></i>
+                            Requirement para sa mga Mag-aaral (Bilang Kliyente)
+                          </h4>
+                          <p className="text-muted mb-3 small">
+                            Mangyaring ihanda at isumite ang mga sumusunod na
+                            dokumento:
+                          </p>
 
-                    <h5 className="text-success mb-4 mt-4">
-                      <i className="bi bi-house-door me-2"></i>
-                      Proof of Residency
-                    </h5>
-                    <ul className="list-unstyled mb-4">
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Barangay Certificate of Residency (issued within 3
-                        months)
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Utility Bill (Electricity, Water, Internet) under
-                        beneficiary's name
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Voter's Certification or Cedula
-                      </li>
-                    </ul>
+                          <ul className="list-unstyled">
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  Tatlong (3) back-to-back na photocopy ng valid
+                                  government-issued ID, mas mabuti kung National
+                                  ID.
+                                </span>
+                              </div>
 
-                    <h5 className="text-success mb-4 mt-4">
-                      <i className="bi bi-file-earmark-text me-2"></i>
-                      Additional Requirements
-                    </h5>
-                    <ul className="list-unstyled mb-4">
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Application Form (will be provided at the municipal
-                        hall)
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Certificate of Indigency (if applicable)
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        Senior Citizen ID (if applicable)
-                      </li>
-                      <li className="mb-3">
-                        <i className="bi bi-check-circle-fill text-success me-3"></i>
-                        PWD ID (if applicable)
-                      </li>
-                    </ul>
+                              {/* Acceptable IDs Section */}
+                              <div className="mt-3 ms-3 ms-md-4 p-3 bg-light rounded-3">
+                                <h6 className="text-success fw-bold mb-2 small">
+                                  <i className="bi bi-card-checklist me-2"></i>
+                                  Mga Tinatanggap na Government ID:
+                                </h6>
+                                <div className="row g-2">
+                                  <div className="col-12 col-sm-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        National ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Passport
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Driver's License
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        UMID
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div className="col-12 col-sm-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Senior Citizen ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        PWD ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Police Clearance
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's Certification
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
 
-                    <div className="bg-light p-4 rounded-3 mt-4">
-                      <h6 className="text-success mb-3">
-                        <i className="bi bi-info-circle me-2"></i>
-                        Important Reminders:
-                      </h6>
-                      <p className="mb-2">
-                        • Submit all documents in A4 size clear plastic envelope
-                      </p>
-                      <p className="mb-2">
-                        • Bring original copies for verification
-                      </p>
-                      <p className="mb-2">
-                        • Requirements must be submitted within 30 days from
-                        verification
-                      </p>
-                      <p className="mb-0">
-                        • Visit your barangay hall for assistance with document
-                        preparation
-                      </p>
-                    </div>
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  <strong>
+                                    Tatlong (3) back-to-back na photocopy
+                                  </strong>{" "}
+                                  ng validated School ID para sa 2nd Semester,
+                                  Academic Year 2025–2026, kasama ang{" "}
+                                  <strong>isang (1) Certified True Copy</strong>{" "}
+                                  na inisyu ng Registrar na may orihinal na
+                                  pirma.
+                                </span>
+                              </div>
+                            </li>
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  <strong>
+                                    Isang (1) Orihinal na Registration Form
+                                  </strong>{" "}
+                                  para sa 2nd Semester, Academic Year 2025–2026,
+                                  na may orihinal na pirma ng Registrar.
+                                </span>
+                              </div>
+                            </li>
+                            <li className="mb-3 text-center">
+                              <span className="px-3 py-1 small fw-bold fs-4">
+                                OR
+                              </span>
+                            </li>
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  <strong>
+                                    Isang (1) Orihinal na Certificate of
+                                    Enrollment
+                                  </strong>{" "}
+                                  na nagsasaad ng 2nd Semester, Academic Year
+                                  2025–2026, na may layuning nakasaad na{" "}
+                                  <span className="fst-italic">
+                                    "Educational Assistance"
+                                  </span>{" "}
+                                  at may orihinal na pirma ng Registrar.
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+
+                          <div className="bg-warning bg-opacity-10 p-3 rounded-3 mt-2">
+                            <div className="d-flex">
+                              <i className="bi bi-exclamation-triangle-fill text-warning me-3 flex-shrink-0"></i>
+                              <span className="small text-dark">
+                                Kung magsusumite ng Certificate of Enrollment,
+                                siguraduhing ito ay opisyal na selyado, lalo na
+                                kung ang dokumento ay nagsasaad ng{" "}
+                                <span className="fst-italic">
+                                  "Not Valid Without Seal."
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Requirements for Parent/Guardian - Tagalog */}
+                        <div className="mb-5">
+                          <h4 className="text-success fw-bold mb-3 fs-5 fs-md-4">
+                            <i className="bi bi-people me-2"></i>
+                            Requirement para sa Awtorisadong
+                            Magulang/Tagapangalaga
+                          </h4>
+                          <p className="text-muted mb-3 small">
+                            <small className="text-muted">
+                              (Nakalista bilang Kliyente – Para sa Minor na
+                              Mag-aaral/Awtorisado)
+                            </small>
+                          </p>
+                          <p className="text-muted mb-3 small">
+                            Para sa mga mag-aaral na kinakatawan ng awtorisadong
+                            magulang o tagapangalaga, mangyaring isumite ang mga
+                            sumusunod:
+                          </p>
+
+                          <ul className="list-unstyled">
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  Tatlong (3) back-to-back na photocopy ng valid
+                                  government-issued ID ng{" "}
+                                  <strong>
+                                    Awtorisadong Magulang/Tagapangalaga
+                                  </strong>
+                                  , mas mabuti kung National ID.
+                                </span>
+                              </div>
+
+                              {/* Acceptable IDs Section */}
+                              <div className="mt-3 ms-3 ms-md-4 p-3 bg-light rounded-3">
+                                <h6 className="text-success fw-bold mb-2 small">
+                                  <i className="bi bi-card-checklist me-2"></i>
+                                  Mga Tinatanggap na Government ID:
+                                </h6>
+                                <div className="row g-2">
+                                  <div className="col-12 col-sm-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        National ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Passport
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Driver's License
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        UMID
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div className="col-12 col-sm-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Senior Citizen ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        PWD ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Police Clearance
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's Certification
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  Tatlong (3) back-to-back na photocopy ng valid
+                                  government-issued ID ng{" "}
+                                  <strong>Mag-aaral</strong>, mas mabuti kung
+                                  National ID.
+                                </span>
+                              </div>
+
+                              {/* Acceptable IDs Section */}
+                              <div className="mt-3 ms-3 ms-md-4 p-3 bg-light rounded-3">
+                                <h6 className="text-success fw-bold mb-2 small">
+                                  <i className="bi bi-card-checklist me-2"></i>
+                                  Mga Tinatanggap na Government ID:
+                                </h6>
+                                <div className="row g-2">
+                                  <div className="col-12 col-sm-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        National ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Passport
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Driver's License
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        UMID
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div className="col-12 col-sm-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Senior Citizen ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        PWD ID
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Police Clearance
+                                      </li>
+                                      <li className="mb-1 small">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's Certification
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  Tatlong (3) back-to-back na photocopy ng
+                                  validated School ID ng Mag-aaral para sa 2nd
+                                  Semester, Academic Year 2025–2026, kasama ang
+                                  isang (1) Certified True Copy na inisyu ng
+                                  Registrar na may orihinal na pirma.
+                                </span>
+                              </div>
+                            </li>
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  <strong>
+                                    Isang (1) Orihinal na Registration Form
+                                  </strong>{" "}
+                                  ng Mag-aaral para sa 2nd Semester, Academic
+                                  Year 2025–2026, na may orihinal na pirma ng
+                                  Registrar.
+                                </span>
+                              </div>
+                            </li>
+                            <li className="mb-3 text-center">
+                              <span className="px-3 py-1 small fw-bold fs-4">
+                                OR
+                              </span>
+                            </li>
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  <strong>
+                                    Isang (1) Orihinal na Certificate of
+                                    Enrollment
+                                  </strong>{" "}
+                                  ng Mag-aaral na nagsasaad ng 2nd Semester,
+                                  Academic Year 2025–2026, na may purpose na{" "}
+                                  <span className="fst-italic">
+                                    "Educational Assistance"
+                                  </span>
+                                  , at may orihinal na pirma ng Registrar.
+                                </span>
+                              </div>
+                            </li>
+                            <li className="mb-3">
+                              <div className="d-flex">
+                                <i className="bi bi-check-circle-fill text-success me-3 flex-shrink-0 mt-1"></i>
+                                <span className="small">
+                                  Kung ang tagapangalaga ay hindi magulang o
+                                  kapatid ng mag-aaral, mangyaring maghanda ng
+                                  Authorization Letter na nagsasaad na ang
+                                  kliyente ay awtorisadong kumuha at/o magsumite
+                                  ng mga dokumento para sa mag-aaral. Ang liham
+                                  ay dapat may pirma ng mag-aaral sa ibabaw ng
+                                  kanyang pangalan.
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+
+                          <div className="bg-warning bg-opacity-10 p-3 rounded-3 mt-2">
+                            <div className="d-flex">
+                              <i className="bi bi-exclamation-triangle-fill text-warning me-3 flex-shrink-0"></i>
+                              <span className="small text-dark">
+                                Kung magsusumite ng Certificate of Enrollment,
+                                siguraduhing ito ay opisyal na selyado, lalo na
+                                kung ang dokumento ay nagsasaad ng{" "}
+                                <span className="fst-italic">
+                                  "Not Valid Without Seal."
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Senior High School Note - Tagalog */}
+                        <div className="mb-4">
+                          <h5 className="text-success fw-bold mb-3 small">
+                            Para sa mga Mag-aaral ng Senior High School:
+                          </h5>
+                          <div className="bg-light p-3 p-md-4 rounded-3">
+                            <div className="d-flex">
+                              <i className="bi bi-info-circle-fill text-success me-3 flex-shrink-0"></i>
+                              <p className="mb-0 small">
+                                Kung magsusumite ng Certificate of Enrollment,
+                                siguraduhing malinaw na nakasaad dito ang{" "}
+                                <strong>Second Semester, A.Y. 2025–2026</strong>{" "}
+                                o nagsasaad ng{" "}
+                                <span className="fst-italic">
+                                  "Currently Enrolled."
+                                </span>{" "}
+                                Ang sertipiko ay dapat may nakasaad na layuning{" "}
+                                <span className="fst-italic">
+                                  "Educational Assistance"
+                                </span>{" "}
+                                at may orihinal na pirma ng Registrar o
+                                releasing officer.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Reminder - Tagalog */}
+                        <div className="bg-success bg-opacity-10 p-3 p-md-4 rounded-3 mt-5">
+                          <h6 className="text-success fw-bold mb-3 small">
+                            <i className="bi bi-exclamation-circle-fill me-2"></i>
+                            Mahalagang Paalala:
+                          </h6>
+                          <div className="d-flex">
+                            <p className="mb-0 text-dark small">
+                              Ang lahat ng photocopy ay dapat{" "}
+                              <strong>back-to-back</strong> upang makatipid sa
+                              paggamit ng papel. Mangyaring tiyakin na kumpleto
+                              at maayos na nakaayos ang lahat ng dokumento bago
+                              isumite.{" "}
+                              <strong className="text-uppercase text-danger">
+                                {" "}
+                                Ang hindi kumpleto o maling mga requirements ay
+                                maaaring magdulot ng pagkaantala sa pagproseso
+                                ng inyong aplikasyon at maaaring maging dahilan
+                                ng pagkaka-disqualify sa educational assistance.
+                              </strong>
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      /* ===== ENGLISH VERSION ===== */
+                      <>
+                        {/* Requirements for Students - English */}
+                        <div className="mb-5">
+                          <h4 className="text-success fw-bold mb-3">
+                            <i className="bi bi-person-video3 me-2"></i>
+                            Requirements for Students (as Client)
+                          </h4>
+                          <p className="text-muted mb-3">
+                            Please prepare and submit the following documents:
+                          </p>
+
+                          <ul className="list-unstyled">
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              Three (3) back-to-back photocopies of a valid
+                              government-issued ID, preferably the National ID.
+                              {/* Acceptable IDs Section */}
+                              <div className="mt-3 ms-4 p-3 bg-light rounded-3">
+                                <h6 className="text-success fw-bold mb-2">
+                                  <i className="bi bi-card-checklist me-2"></i>
+                                  Acceptable Government IDs:
+                                </h6>
+                                <div className="row">
+                                  <div className="col-md-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        National ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Passport
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Driver's License
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        UMID
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Senior Citizen ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        PWD ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Police Clearance
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's Certification
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              <strong>
+                                Three (3) back-to-back photocopies{" "}
+                              </strong>{" "}
+                              of a validated School ID for Second Semester,
+                              Academic Year 2025–2026, together with{" "}
+                              <strong>one (1) Certified True Copy </strong>{" "}
+                              issued by the Registrar bearing the original
+                              signature.
+                            </li>
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              <strong>
+                                One (1) Original Registration Form
+                              </strong>{" "}
+                              for Second Semester, Academic Year 2025–2026, with
+                              the original signature of the Registrar.
+                            </li>
+                            <li className="mb-3 text-center fs-3">
+                              <strong className="text-uppercase">OR</strong>
+                            </li>
+                            <li className="mb-3">
+                              <strong>
+                                One (1) Original Certificate of Enrollment
+                              </strong>{" "}
+                              indicating Second Semester, Academic Year
+                              2025–2026, with the purpose stated as{" "}
+                              <span className="fst-italic">
+                                "Educational Assistance"
+                              </span>{" "}
+                              and bearing the original signature of the
+                              Registrar.
+                            </li>
+                          </ul>
+
+                          <div className="bg-warning bg-opacity-10 p-3 rounded-3 mt-2">
+                            <i className="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                            <span className="text-dark">
+                              If a Certificate of Enrollment is submitted,
+                              please ensure that it is officially sealed,
+                              especially if the document indicates{" "}
+                              <span className="fst-italic">
+                                "Not Valid Without Seal."
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Requirements for Parent/Guardian - English */}
+                        <div className="mb-5">
+                          <h4 className="text-success fw-bold mb-3">
+                            <i className="bi bi-people me-2"></i>
+                            Requirements for Authorized Parent/Guardian <br />
+                            <small className="text-muted fs-6">
+                              (Listed as Client – For Minor Students/Authorized)
+                            </small>
+                          </h4>
+                          <p className="text-muted mb-3">
+                            For students represented by an authorized parent or
+                            guardian, please submit the following:
+                          </p>
+
+                          <ul className="list-unstyled">
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              Three (3) back-to-back photocopies of a valid
+                              government-issued ID of the{" "}
+                              <strong>Authorized Parent/Guardian</strong>,
+                              preferably the National ID.
+                              {/* Acceptable IDs Section */}
+                              <div className="mt-3 ms-4 p-3 bg-light rounded-3">
+                                <h6 className="text-success fw-bold mb-2">
+                                  <i className="bi bi-card-checklist me-2"></i>
+                                  Acceptable Government IDs:
+                                </h6>
+                                <div className="row">
+                                  <div className="col-md-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        National ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Passport
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Driver's License
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        UMID
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Senior Citizen ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        PWD ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Police Clearance
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's Certification
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              Three (3) back-to-back photocopies of a valid
+                              government-issued ID of the{" "}
+                              <strong>Student</strong>, preferably the National
+                              ID.
+                              {/* Acceptable IDs Section */}
+                              <div className="mt-3 ms-4 p-3 bg-light rounded-3">
+                                <h6 className="text-success fw-bold mb-2">
+                                  <i className="bi bi-card-checklist me-2"></i>
+                                  Acceptable Government IDs:
+                                </h6>
+                                <div className="row">
+                                  <div className="col-md-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        National ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Passport
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Driver's License
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        UMID
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <ul className="list-unstyled mb-0">
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Senior Citizen ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        PWD ID
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Police Clearance
+                                      </li>
+                                      <li className="mb-1">
+                                        <i className="bi bi-dot text-success me-2"></i>
+                                        Voter's Certification
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              Three (3) back-to-back photocopies of a validated
+                              School ID of the Student for Second Semester,
+                              Academic Year 2025–2026, together with one (1)
+                              Certified True Copy issued by the Registrar
+                              bearing the original signature.
+                            </li>
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              <strong>
+                                One (1) Original Registration Form
+                              </strong>{" "}
+                              of the Student for Second Semester, Academic Year
+                              2025–2026, with the original signature of the
+                              Registrar.
+                            </li>
+                            <li className="mb-3 text-center fs-3">
+                              <strong className="text-uppercase">OR</strong>
+                            </li>
+                            <li className="mb-3">
+                              <strong>
+                                One (1) Original Certificate of Enrollment
+                              </strong>{" "}
+                              of the Student indicating Second Semester,
+                              Academic Year 2025–2026, with the purpose stated
+                              as{" "}
+                              <span className="fst-italic">
+                                "Educational Assistance"
+                              </span>
+                              , and bearing the original signature of the
+                              Registrar.
+                            </li>
+                            <li className="mb-3">
+                              <i className="bi bi-check-circle-fill text-success me-3"></i>
+                              If the custodian or guardian is not the parent or
+                              sibling of the student, please prepare an
+                              Authorization Letter indicating that the client is
+                              authorized to claim and/or submit the documents on
+                              behalf of the student. The letter must include the
+                              student’s signature over printed name.
+                            </li>
+                          </ul>
+
+                          <div className="bg-warning bg-opacity-10 p-3 rounded-3 mt-2">
+                            <i className="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                            <span className="text-dark">
+                              If a Certificate of Enrollment is submitted,
+                              please ensure that it is officially sealed,
+                              especially if the document indicates{" "}
+                              <span className="fst-italic">
+                                "Not Valid Without Seal."
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Senior High School Note - English */}
+                        <div className="mb-4">
+                          <h5 className="text-success fw-bold mb-3">
+                            For Senior High School Students:
+                          </h5>
+                          <div className="bg-light p-4 rounded-3">
+                            <p className="mb-0">
+                              <i className="bi bi-info-circle-fill text-success me-2"></i>
+                              If submitting a Certificate of Enrollment, please
+                              ensure that it clearly indicates{" "}
+                              <strong> Second Semester, A.Y. 2025–2026</strong>{" "}
+                              or states{" "}
+                              <span className="fst-italic">
+                                "Currently Enrolled."
+                              </span>{" "}
+                              The certificate must include the purpose{" "}
+                              <span className="fst-italic">
+                                "Educational Assistance"
+                              </span>{" "}
+                              and must bear the original signature of the
+                              Registrar or releasing officer.
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Reminder - English */}
+                        <div className="bg-success bg-opacity-10 p-4 rounded-3 mt-5">
+                          <h6 className="text-success fw-bold mb-3">
+                            <i className="bi bi-exclamation-circle-fill me-2"></i>
+                            Important Reminder:
+                          </h6>
+                          <p className="mb-0 text-dark">
+                            All photocopies should be{" "}
+                            <strong>back-to-back</strong> to minimize paper
+                            usage. Please ensure that all documents are complete
+                            and properly organized before submission.{" "}
+                            <strong className="text-uppercase text-danger">
+                              Incomplete or incorrect requirements may cause
+                              delays in the processing of your application and
+                              may result in disqualification from the grant.
+                            </strong>
+                          </p>
+                        </div>
+                      </>
+                    )}
                   </Card.Body>
                 </Card>
               </Modal.Body>
-              <Modal.Footer className="modern-modal-footer">
-                <Button
-                  variant="success"
-                  onClick={handleCloseRequirements}
-                  size="lg"
-                  className="px-5"
-                >
-                  Got it
-                </Button>
+              <Modal.Footer className="modern-modal-footer d-flex flex-column">
+                {/* Checkbox Section */}
+                <div className="w-100 mb-3">
+                  <div className="d-flex align-items-start justify-content-center">
+                    <Form.Check
+                      type="checkbox"
+                      id="understand-checkbox"
+                      checked={hasAgreed}
+                      onChange={(e) => setHasAgreed(e.target.checked)}
+                      className="me-2"
+                      style={{ cursor: "pointer" }}
+                    />
+                    <label
+                      htmlFor="understand-checkbox"
+                      className="text-muted small cursor-pointer"
+                      style={{ cursor: "pointer", userSelect: "none" }}
+                    >
+                      {isTagalog ? (
+                        <>
+                          Naiintindihan ko ang lahat ng requirements na
+                          kailangan ipasa.
+                        </>
+                      ) : (
+                        <>
+                          I understand the necessary requirements that need to
+                          be submitted.
+                        </>
+                      )}
+                    </label>
+                  </div>
+                </div>
+
+                {/* Button Section */}
+                <div className="w-100 d-flex justify-content-center">
+                  <Button
+                    variant="success"
+                    onClick={handleCloseRequirements}
+                    size="lg"
+                    className={`px-3 px-md-5 w-100 w-md-auto ${!hasAgreed ? "opacity-50" : ""}`}
+                    disabled={!hasAgreed}
+                  >
+                    {isTagalog ? "Naiintindihan Ko" : "Got it"}
+                  </Button>
+                </div>
               </Modal.Footer>
             </Modal>
           </Col>
