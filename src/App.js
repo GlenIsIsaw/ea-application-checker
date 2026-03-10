@@ -1031,7 +1031,8 @@ function App() {
                                     Tatlong (3) back-to-back na photocopy
                                   </strong>{" "}
                                   ng validated School ID para sa 2nd Semester,
-                                  Academic Year 2025–2026. {/*, kasama ang{" "}
+                                  Academic Year 2025–2026.{" "}
+                                  {/*, kasama ang{" "}
                                  <strong>isang (1) Certified True Copy</strong>{" "}
                                   na inisyu ng Registrar na may orihinal na
                                   pirma.*/}
@@ -1249,7 +1250,8 @@ function App() {
                                 <span className="small">
                                   Tatlong (3) back-to-back na photocopy ng
                                   validated School ID ng Mag-aaral para sa 2nd
-                                  Semester, Academic Year 2025–2026. {/*, kasama ang
+                                  Semester, Academic Year 2025–2026.{" "}
+                                  {/*, kasama ang
                                   isang (1) Certified True Copy na inisyu ng
                                   Registrar na may orihinal na pirmaa. */}
                                 </span>
@@ -1346,6 +1348,29 @@ function App() {
                               </p>
                             </div>
                           </div>
+                        </div>
+
+                        <div className="bg-light p-4 rounded-3">
+                          <p className="mb-0">
+                            <i className="bi bi-info-circle-fill text-success me-2"></i>
+                            Tanging ang nakatalang magulang, tagapag-alaga, o
+                            custodian na nakalista sa{" "}
+                            <strong className="text-uppercase">
+                              talaan ng mga kliyente
+                            </strong>{" "}
+                            ang pinapayagang maging awtorisadong kinatawan.{" "}
+                            <strong className="text-uppercase">
+                              Ang agarang pag-awtorisa at pagpapalit
+                            </strong>{" "}
+                            ng nakatalang kliyente{" "}
+                            <strong className="text-uppercase">
+                              ay hindi pinapayagan
+                            </strong>
+                            &nbsp;sa panahon ng validation at processing.
+                            Hinihiling po namin sa lahat na tiyaking ang tamang
+                            awtorisadong tao ang makadalo sa nakatakdang
+                            proseso. Maraming salamat po sa inyong kooperasyon.
+                          </p>
                         </div>
 
                         {/* Reminder - Tagalog */}
@@ -1451,7 +1476,8 @@ function App() {
                                 Three (3) back-to-back photocopies{" "}
                               </strong>{" "}
                               of a validated School ID for Second Semester,
-                              Academic Year 2025–2026 .{/*, together with{" "}
+                              Academic Year 2025–2026 .
+                              {/*, together with{" "}
                               <strong>one (1) Certified True Copy </strong>{" "}
                               issued by the Registrar bearing the original
                               signature. */}
@@ -1635,7 +1661,8 @@ function App() {
                               <i className="bi bi-check-circle-fill text-success me-3"></i>
                               Three (3) back-to-back photocopies of a validated
                               School ID of the Student for Second Semester,
-                              Academic Year 2025–2026 .{/*, together with one (1)
+                              Academic Year 2025–2026 .
+                              {/*, together with one (1)
                               Certified True Copy issued by the Registrar
                               bearing the original signature. */}
                             </li>
@@ -1711,6 +1738,30 @@ function App() {
                               Registrar or releasing officer.
                             </p>
                           </div>
+                        </div>
+
+                        <div className="bg-light p-4 rounded-3">
+                          <p className="mb-0">
+                            <i className="bi bi-info-circle-fill text-success me-2"></i>
+                            Only the listed parent, guardian, or custodian
+                            indicated in the{" "}
+                            <strong className="text-uppercase">
+                              client list
+                            </strong>{" "}
+                            will be allowed to act as the authorized
+                            representative.{" "}
+                            <strong className="text-uppercase">
+                              On-the-spot authorization and replacement
+                            </strong>{" "}
+                            of the listed client{" "}
+                            <strong className="text-uppercase">
+                              will not be permitted
+                            </strong>
+                            &nbsp;during the validation and processing period.
+                            We kindly ask everyone to ensure that the correct
+                            and authorized person is present during the
+                            scheduled process. Thank you for your cooperation.
+                          </p>
                         </div>
 
                         {/* Reminder - English */}
