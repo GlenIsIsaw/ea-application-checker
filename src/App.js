@@ -1251,7 +1251,7 @@ function App() {
                                   validated School ID ng Mag-aaral para sa 2nd
                                   Semester, Academic Year 2025–2026. {/*, kasama ang
                                   isang (1) Certified True Copy na inisyu ng
-                                  Registrar na may orihinal na pirma. */}
+                                  Registrar na may orihinal na pirmaa. */}
                                 </span>
                               </div>
                             </li>
