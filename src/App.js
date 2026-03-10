@@ -1031,10 +1031,10 @@ function App() {
                                     Tatlong (3) back-to-back na photocopy
                                   </strong>{" "}
                                   ng validated School ID para sa 2nd Semester,
-                                  Academic Year 2025–2026, kasama ang{" "}
-                                  <strong>isang (1) Certified True Copy</strong>{" "}
+                                  Academic Year 2025–2026. {/*, kasama ang{" "}
+                                 <strong>isang (1) Certified True Copy</strong>{" "}
                                   na inisyu ng Registrar na may orihinal na
-                                  pirma.
+                                  pirma.*/}
                                 </span>
                               </div>
                             </li>
@@ -1249,9 +1249,9 @@ function App() {
                                 <span className="small">
                                   Tatlong (3) back-to-back na photocopy ng
                                   validated School ID ng Mag-aaral para sa 2nd
-                                  Semester, Academic Year 2025–2026, kasama ang
+                                  Semester, Academic Year 2025–2026. {/*, kasama ang
                                   isang (1) Certified True Copy na inisyu ng
-                                  Registrar na may orihinal na pirma.
+                                  Registrar na may orihinal na pirma. */}
                                 </span>
                               </div>
                             </li>
@@ -1451,10 +1451,10 @@ function App() {
                                 Three (3) back-to-back photocopies{" "}
                               </strong>{" "}
                               of a validated School ID for Second Semester,
-                              Academic Year 2025–2026, together with{" "}
+                              Academic Year 2025–2026 .{/*, together with{" "}
                               <strong>one (1) Certified True Copy </strong>{" "}
                               issued by the Registrar bearing the original
-                              signature.
+                              signature. */}
                             </li>
                             <li className="mb-3">
                               <i className="bi bi-check-circle-fill text-success me-3"></i>
@@ -1635,9 +1635,9 @@ function App() {
                               <i className="bi bi-check-circle-fill text-success me-3"></i>
                               Three (3) back-to-back photocopies of a validated
                               School ID of the Student for Second Semester,
-                              Academic Year 2025–2026, together with one (1)
+                              Academic Year 2025–2026 .{/*, together with one (1)
                               Certified True Copy issued by the Registrar
-                              bearing the original signature.
+                              bearing the original signature. */}
                             </li>
                             <li className="mb-3">
                               <i className="bi bi-check-circle-fill text-success me-3"></i>
