@@ -706,11 +706,11 @@ function App() {
                             <div className="d-flex align-items-start">
                               <i className="bi bi-geo-alt-fill text-success me-2 mt-1 flex-shrink-0"></i>
                               <div>
-                                <p className="fw-bold mb-1">
-                                  Barangay Borabod Covered Court
+                                <p className="fw-bold mb-1 text-uppercase">
+                                   Greenview Subdivision Covered Court*
                                 </p>
                                 <p className="fs-4">
-                                  Barangay Borabod, Daet, Camarines Norte
+                                Barangay Camambugan, Daet, Camarines Norte
                                 </p>
                               </div>
                             </div>
