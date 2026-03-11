@@ -143,6 +143,16 @@ function App() {
 
   // Lightweight confetti function that targets the modal
   const fireConfettiInModal = () => {
+
+    // Play success sound immediately
+  try {
+    const audio = new Audio('/success-sound.mp3'); // Place MP3 in public folder
+    audio.volume = 0.4; // 40% volume
+    audio.play().catch(e => console.log('Audio playback:', e));
+  } catch (error) {
+    console.log("Audio error:", error);
+  }
+
     // Fallback to center of screen if modal ref isn't available
     try {
       let originX = 0.5;
@@ -699,7 +709,7 @@ function App() {
                             >
                               requirements
                             </a>{" "}
-                            will be conducted and submitted at the following venue:
+                            will be conducted and submitted at the following <span className="text-uppercase text-success fw-bold">venue</span>:
                           </p>
 
                           <div className="schedule-venue-card">
@@ -782,7 +792,7 @@ function App() {
                           <div className="schedule-reminder">
                             <i className="bi bi-exclamation-triangle-fill text-warning flex-shrink-0"></i>
                             <p className="schedule-reminder-text">
-                              Kindly arrive on time and bring all the required
+                              Kindly arrive on time and bring all the required and correct
                               documents to ensure a smooth and efficient
                               validation process.
                             </p>
