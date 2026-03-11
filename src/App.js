@@ -1061,7 +1061,7 @@ function App() {
                                     Isang (1) Orihinal na Registration Form
                                   </strong>{" "}
                                   para sa 2nd Semester, Academic Year 2025–2026,
-                                  na may orihinal na pirma ng Registrar.
+                                  na may orihinal na pirma ng Registrar. Magbigay ng isang (1) photocopy ng Registration Form.
                                 </span>
                               </div>
                             </li>
@@ -1083,7 +1083,7 @@ function App() {
                                   <span className="fst-italic">
                                     "Educational Assistance"
                                   </span>{" "}
-                                  at may orihinal na pirma ng Registrar.
+                                  at may orihinal na pirma ng Registrar. Magbigay ng isang (1) photocopy ng Certificate of Enrollment.
                                 </span>
                               </div>
                             </li>
@@ -1288,7 +1288,7 @@ function App() {
                                   </strong>{" "}
                                   ng Mag-aaral para sa 2nd Semester, Academic
                                   Year 2025–2026, na may orihinal na pirma ng
-                                  Registrar.
+                                  Registrar. Magbigay ng isang (1) photocopy ng Registration Form.
                                 </span>
                               </div>
                             </li>
@@ -1310,7 +1310,7 @@ function App() {
                                   <span className="fst-italic">
                                     "Educational Assistance"
                                   </span>
-                                  , at may orihinal na pirma ng Registrar.
+                                  , at may orihinal na pirma ng Registrar. Magbigay ng isang (1) photocopy ng Certificate of Enrollment.
                                 </span>
                               </div>
                             </li>
@@ -1366,7 +1366,7 @@ function App() {
                                   "Educational Assistance"
                                 </span>{" "}
                                 at may orihinal na pirma ng Registrar o
-                                releasing officer.
+                                releasing officer. Magbigay ng isang (1) photocopy ng Certificate of Enrollment.
                               </p>
                             </div>
                           </div>
@@ -1514,7 +1514,7 @@ function App() {
                                 One (1) Original Registration Form
                               </strong>{" "}
                               for Second Semester, Academic Year 2025–2026, with
-                              the original signature of the Registrar.
+                              the original signature of the Registrar. Provide one (1) photocopy of Registration Form.
                             </li>
                             <li className="mb-3 text-center fs-3">
                               <strong className="text-uppercase">OR</strong>
@@ -1529,7 +1529,7 @@ function App() {
                                 "Educational Assistance"
                               </span>{" "}
                               and bearing the original signature of the
-                              Registrar.
+                              Registrar. Provide one (1) photocopy of Certificate of Enrollment.
                             </li>
                           </ul>
 
@@ -1699,7 +1699,7 @@ function App() {
                               </strong>{" "}
                               of the Student for Second Semester, Academic Year
                               2025–2026, with the original signature of the
-                              Registrar.
+                              Registrar. Provide one (1) photocopy of Registration Form.
                             </li>
                             <li className="mb-3 text-center fs-3">
                               <strong className="text-uppercase">OR</strong>
@@ -1715,7 +1715,7 @@ function App() {
                                 "Educational Assistance"
                               </span>
                               , and bearing the original signature of the
-                              Registrar.
+                              Registrar. Provide one (1) photocopy of Certificate of Enrollment.
                             </li>
                             <li className="mb-3">
                               <i className="bi bi-check-circle-fill text-success me-3"></i>
@@ -1761,7 +1761,7 @@ function App() {
                                 "Educational Assistance"
                               </span>{" "}
                               and must bear the original signature of the
-                              Registrar or releasing officer.
+                              Registrar or releasing officer. Provide one (1) photocopy of Certificate of Enrollment.
                             </p>
                           </div>
                         </div>
