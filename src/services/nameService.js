@@ -74,12 +74,24 @@ export async function checkNameInDatabase(
       query = query.is("middle_name", null);
     }
 
-    // Handle extension
+    // ===== FIXED: Handle extension with flexible matching =====
     if (sanitizedExtension) {
-      query = query.eq("extension", sanitizedExtension);
+      // Clean the extension: remove any periods and convert to uppercase for comparison
+      const cleanExt = sanitizedExtension.toUpperCase().replace(/\./g, '');
+      
+      // Try multiple variations:
+      // 1. Original extension (as provided)
+      // 2. Without period (e.g., "JR")
+      // 3. With period added (e.g., "JR.")
+      query = query.or(
+        `extension.eq.${sanitizedExtension},` +    // exact match (e.g., "JR." or "JR")
+        `extension.eq.${cleanExt},` +               // without period (e.g., "JR")
+        `extension.eq.${cleanExt}.`                  // with period added (e.g., "JR.")
+      );
     } else {
       query = query.is("extension", null);
     }
+    // ===== END FIX =====
 
     const { data, error } = await query.maybeSingle();
 
